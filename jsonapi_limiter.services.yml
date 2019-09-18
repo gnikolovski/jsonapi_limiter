@@ -1,0 +1,8 @@
+services:
+  jsonapi_limiter.service:
+    class: Drupal\jsonapi_limiter\JsonapiLimiterService
+  jsonapi_limiter.middleware:
+    class: Drupal\jsonapi_limiter\JsonapiLimiterMiddleware
+    arguments: ['@jsonapi_limiter.service']
+    tags:
+      - { name: http_middleware, priority: 400 }
