@@ -17,6 +17,23 @@ class JsonapiLimiterService {
   const RETRY_INTERVAL = 2;
 
   /**
+   * The state.
+   *
+   * @var \Drupal\Core\State\StateInterface
+   */
+  protected $state;
+
+  /**
+   * JsonapiLimiterService constructor.
+   *
+   * @param \Drupal\jsonapi_limiter\StateInterface $state
+   *   The state.
+   */
+  public function __construct(StateInterface $state) {
+    $this->state = $state;
+  }
+
+  /**
    * Checks if this is an update (POST, PUT and PATCH HTTP methods) request.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
@@ -79,7 +96,7 @@ class JsonapiLimiterService {
    *   The Uri hash.
    */
   protected function saveRequestTime($uri_hash) {
-    \Drupal::state()->set(self::STATE_KEY . $uri_hash, time());
+    $this->state->set(self::STATE_KEY . $uri_hash, time());
   }
 
   /**
@@ -94,7 +111,7 @@ class JsonapiLimiterService {
   public function limit(Request $request) {
     $uri = $request->getUri();
     $uri_hash = md5($uri);
-    $last_called = (int) \Drupal::state()->get(self::STATE_KEY . $uri_hash);
+    $last_called = (int) $this->state->get(self::STATE_KEY . $uri_hash);
 
     // First request for this Uri, so we are not limiting the request.
     if ($last_called == 0) {
