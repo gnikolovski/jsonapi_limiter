@@ -1,7 +1,8 @@
-name: 'JSON:API Limiter'
-description: 'JSON:API Limiter module limits requests to the JSON:API endpoints.'
-core: 8.x
 type: module
+name: 'JSON:API Limiter'
+description: 'Limits requests to the JSON:API endpoints.'
 package: 'Web services'
+core: 8.x
+core_version_requirement: ^8 || ^9
 dependencies:
   - drupal:jsonapi
