@@ -2,6 +2,7 @@
 
 namespace Drupal\jsonapi_limiter;
 
+use Drupal\Core\State\StateInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +27,7 @@ class JsonapiLimiterService {
   /**
    * JsonapiLimiterService constructor.
    *
-   * @param \Drupal\jsonapi_limiter\StateInterface $state
+   * @param \Drupal\Core\State\StateInterface $state
    *   The state.
    */
   public function __construct(StateInterface $state) {
